@@ -1,15 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
-class GameShopPage extends StatelessWidget {
+import '../models/shop_product_model.dart';
+import '../providers/game_wallet_provider.dart';
+import '../providers/iap_provider.dart';
+
+class GameShopPage extends ConsumerWidget {
   const GameShopPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final backgroundColor = isDark ? const Color(0xFF121212) : Colors.grey.shade50;
     final cardColor = isDark ? const Color(0xFF1E1E1E) : Colors.white;
     final textColor = isDark ? Colors.white : Colors.black87;
     final subtitleColor = isDark ? Colors.white54 : Colors.black54;
+
+    final walletState = ref.watch(gameWalletProvider);
+    final products = ref.watch(iAPManagerProvider);
+
+    final String ecocoPointsStr = walletState.when(
+      data: (wallet) => NumberFormat('#,###').format(wallet.ecocoPoints),
+      loading: () => '...',
+      error: (_, _) => '0',
+    );
+    final String gameGoldStr = walletState.when(
+      data: (wallet) => NumberFormat('#,###').format(wallet.gameGold),
+      loading: () => '...',
+      error: (_, _) => '0',
+    );
+
+    final ecocoProducts = products.where((p) => p.currencyType == ProductCurrencyType.ecocoPoint).toList();
+    final iapProducts = products.where((p) => p.currencyType == ProductCurrencyType.iap).toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -24,20 +47,20 @@ class GameShopPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildBalanceHeader(isDark),
+            _buildBalanceHeader(isDark, ecocoPointsStr, gameGoldStr),
             const SizedBox(height: 24),
             _buildSectionTitle('環保點數兌換', Icons.eco, textColor),
-            _buildPointsExchangeList(cardColor, textColor, subtitleColor),
+            _buildProductList(ecocoProducts, cardColor, textColor, subtitleColor, ref),
             const SizedBox(height: 24),
             _buildSectionTitle('能量補給站 (IAP)', Icons.bolt, textColor),
-            _buildIapList(cardColor, textColor, subtitleColor),
+            _buildProductList(iapProducts, cardColor, textColor, subtitleColor, ref),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildBalanceHeader(bool isDark) {
+  Widget _buildBalanceHeader(bool isDark, String ecocoPoints, String gameGold) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -58,9 +81,9 @@ class GameShopPage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildBalanceItem('ECOCO 點數', '1,250', Icons.stars),
+          _buildBalanceItem('ECOCO 點數', ecocoPoints, Icons.stars),
           Container(width: 1, height: 40, color: Colors.white24),
-          _buildBalanceItem('遊戲金幣', '50,000', Icons.monetization_on),
+          _buildBalanceItem('遊戲金幣', gameGold, Icons.monetization_on),
         ],
       ),
     );
@@ -95,45 +118,39 @@ class GameShopPage extends StatelessWidget {
     );
   }
 
-  Widget _buildPointsExchangeList(Color cardColor, Color textColor, Color subtitleColor) {
+  Widget _buildProductList(List<ShopProductModel> products, Color cardColor, Color textColor, Color subtitleColor, WidgetRef ref) {
+    if (products.isEmpty) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text('目前無可購買之商品', style: TextStyle(color: subtitleColor)),
+        ),
+      );
+    }
+    
     return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: 3,
+      itemCount: products.length,
       separatorBuilder: (context, index) => const SizedBox(height: 12),
       itemBuilder: (context, index) {
-        final amounts = [1000, 5000, 10000];
-        final costs = [10, 45, 80];
+        final product = products[index];
+        final String btnLabel = product.currencyType == ProductCurrencyType.ecocoPoint 
+            ? '兌換' 
+            : (product.iapPriceString ?? '購買');
+        final Color iconBgColor = product.currencyType == ProductCurrencyType.ecocoPoint
+            ? Colors.green.withValues(alpha: 0.1)
+            : Colors.blue.withValues(alpha: 0.1);
+            
         return _buildShopItem(
-          '遊戲金幣 x${amounts[index]}',
-          '消耗 ${costs[index]} 點 ECOCO',
-          Colors.green.withValues(alpha: 0.1),
-          '兌換',
+          product.title,
+          product.description,
+          iconBgColor,
+          btnLabel,
           cardColor,
           textColor,
           subtitleColor,
-        );
-      },
-    );
-  }
-
-  Widget _buildIapList(Color cardColor, Color textColor, Color subtitleColor) {
-    return ListView.separated(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: 2,
-      separatorBuilder: (context, index) => const SizedBox(height: 12),
-      itemBuilder: (context, index) {
-        final titles = ['新手資源包', '大師補給箱'];
-        final prices = ['NT\$30', 'NT\$150'];
-        return _buildShopItem(
-          titles[index],
-          '內含大量金幣與稀有素材',
-          Colors.blue.withValues(alpha: 0.1),
-          prices[index],
-          cardColor,
-          textColor,
-          subtitleColor,
+          () => ref.read(iAPManagerProvider.notifier).buyProduct(product),
         );
       },
     );
@@ -147,6 +164,7 @@ class GameShopPage extends StatelessWidget {
     Color cardColor,
     Color textColor,
     Color subtitleColor,
+    VoidCallback onPressed,
   ) {
     return Container(
       padding: const EdgeInsets.all(16),
@@ -183,7 +201,7 @@ class GameShopPage extends StatelessWidget {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: onPressed,
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.green,
               foregroundColor: Colors.white,

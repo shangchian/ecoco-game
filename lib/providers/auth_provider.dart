@@ -354,6 +354,7 @@ class AuthNotifier extends _$AuthNotifier {
       membersService: ref.read(membersServiceProvider),
       notificationRepository: ref.read(notificationRepositoryProvider),
     );
+    
     return await initService.runInitialization(state!, ref);
   }
 

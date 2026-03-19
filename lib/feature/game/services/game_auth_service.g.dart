@@ -41,7 +41,7 @@ final class GameAuthServiceProvider
   }
 }
 
-String _$gameAuthServiceHash() => r'6b858e7d3b27546a012c4b11600588fb4cfd6050';
+String _$gameAuthServiceHash() => r'b82eccd74ee6af40a1227fac58d63fbf4700cf39';
 
 abstract class _$GameAuthService extends $Notifier<void> {
   void build();

@@ -186,4 +186,18 @@ class F {
     }
   }
 
+  /// Firestore Database ID for the game system
+  /// - internal: ecoco-game-db-internal
+  /// - production: ecoco-game-db
+  static String get gameDatabaseId {
+    switch (appFlavor) {
+      case Flavor.internal:
+        return 'ecoco-game-db-internal';
+      case Flavor.production:
+        return 'ecoco-game-db';
+      default:
+        return 'ecoco-game-db-internal'; // Default to internal for safety
+    }
+  }
+
 }

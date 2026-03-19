@@ -1,0 +1,93 @@
+{
+  "project_info": {
+    "project_number": "818872589372",
+    "firebase_url": "https://ecoco-app-v2.firebaseio.com",
+    "project_id": "ecoco-app-v2",
+    "storage_bucket": "ecoco-app-v2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818872589372:android:210d30bd99c16c03957739",
+        "android_client_info": {
+          "package_name": "com.ECOCO.ECOCO"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818872589372-dbpl68n86hj380ebdc5u6uokjd256hup.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ECOCO.ECOCO",
+            "certificate_hash": "4da6f05099215ce5cab4eab85c623969efb5f17e"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSvrU8SxZBDBGHg5RUbGbgswSxWntglw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818872589372-0sndi2ri81oqnbd87lr9tqo7m736thac.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "818872589372-5b75gs5oh5o7mubcckue7h0c1kid9jm2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dream.ECOCO",
+                "app_store_id": "1433866801"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818872589372:android:d07abd0028de3fb2957739",
+        "android_client_info": {
+          "package_name": "com.ECOCO.ECOCO.Test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818872589372-2ecppn603bbc81amv8d0rmgo6blo8okd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ECOCO.ECOCO.Test",
+            "certificate_hash": "4a58ad1f31cf69197311c3c4b3d3d38274d699e4"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSvrU8SxZBDBGHg5RUbGbgswSxWntglw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818872589372-0sndi2ri81oqnbd87lr9tqo7m736thac.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "818872589372-5b75gs5oh5o7mubcckue7h0c1kid9jm2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dream.ECOCO",
+                "app_store_id": "1433866801"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

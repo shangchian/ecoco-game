@@ -1,0 +1,66 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+.vscode/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# FVM Version Cache
+.fvm/
+
+# build
+/android/build/
+
+# assets/data/*.json，透過 make cache_s3_lists 從伺服器抓下來的快取資料。
+/assets/data/*
+# 但保留資料夾本身
+!/assets/data/
+# 例外：這個檔案要被追蹤
+!/assets/data/tos.md
+
+# AI Agent 的工作流設定
+.agent/workflows/
+
+# Node modules (e.g. for Firebase Functions)
+node_modules/
+.firebase/
+firebase-debug.log*
+.runtimeconfig.json

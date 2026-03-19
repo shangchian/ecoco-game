@@ -1,0 +1,42 @@
+{
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ]
+    }
+  ],
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "ecoco-app-v2",
+          "appId": "1:818872589372:android:210d30bd99c16c03957739",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "ecoco-app-v2",
+          "appId": "1:818872589372:ios:7c0cd3486e2ffc3e957739",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "ecoco-app-v2",
+          "configurations": {
+            "android": "1:818872589372:android:210d30bd99c16c03957739",
+            "ios": "1:818872589372:ios:7c0cd3486e2ffc3e957739"
+          }
+        }
+      }
+    }
+  }
+}

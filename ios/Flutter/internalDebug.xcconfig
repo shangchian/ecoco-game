@@ -1,0 +1,8 @@
+#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"
+#include "Generated.xcconfig"
+
+FLUTTER_TARGET=lib/main_internal.dart
+ASSET_PREFIX=internal
+BUNDLE_NAME=ECOCO Test
+BUNDLE_DISPLAY_NAME=ECOCO Test
+PRODUCT_BUNDLE_IDENTIFIER=com.funleadchange.ecStore
